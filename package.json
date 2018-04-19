@@ -1,0 +1,59 @@
+{
+  "name": "dev-kong",
+  "version": "0.2.2",
+  "description": "Devevlopment Kong Server",
+  "bin": {
+    "kong": "./src/index.js"
+  },
+  "scripts": {
+    "lint": "standard"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ernestofreyreg/dev-kong.git"
+  },
+  "keywords": [
+    "cli",
+    "development",
+    "kong"
+  ],
+  "author": "Ernesto Freyre <ernestofreyreg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ernestofreyreg/dev-kong/issues"
+  },
+  "homepage": "https://github.com/ernestofreyreg/dev-kong#readme",
+  "dependencies": {
+    "axios": "^0.16.1",
+    "bluebird": "^3.4.7",
+    "cli-table": "^0.3.1",
+    "commander": "^2.9.0",
+    "fs-extra": "^3.0.1",
+    "my-ip": "^1.1.1",
+    "node-yaml": "^3.1.1",
+    "ramda": "^0.24.1",
+    "tmp": "^0.0.33"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "must": "^0.13.2",
+    "must-sinon": "^0.0.0",
+    "pre-commit": "^1.2.2",
+    "sinon": "^1.17.7",
+    "standard": "^10.0.3"
+  },
+  "standard": {
+    "globals": [
+      "after",
+      "afterEach",
+      "before",
+      "beforeEach",
+      "describe",
+      "expect",
+      "it"
+    ]
+  }
+}
