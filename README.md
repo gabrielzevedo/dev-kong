@@ -1,6 +1,6 @@
 # dev-kong
 
-Helper CLI for working with kong (getkong.org)
+Helper CLI for working with Kong (getkong.org)
 
 ```bash
 $ kong
@@ -15,8 +15,10 @@ Usage: kong [options] [command]
 
   Commands:
 
-    status                                Check kong status
-    add <name> <hosts> <upstream> [uris]  Adds kong API
+    status                                Check Kong status
+    add <name> <hosts> <upstream> [uris]  Adds API
     list                                  List APIs
-    delete <name>                         Deletes kong API
+    delete <name>                         Deletes API
+    start                                 Start local Kong server
+    stop                                  Stop local Kong server
 ```
