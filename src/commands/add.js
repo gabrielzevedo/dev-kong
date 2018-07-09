@@ -1,17 +1,17 @@
 const { postKong } = require('../kong')
 const { logObject } = require('../helper')
 
-function addKongApi (name, hosts, upstream, uris) {
+function addKongApi (name, hosts, upstream, uris, options) {
   const data = {
     name,
     hosts,
     upstream_url: upstream,
     preserve_host: false,
-    strip_uri: false
+    strip_uri: options.strip
   }
 
   if (uris) {
-    data.uris = uris
+    data.uris = uris.split(',').map(x => x.trim())
   }
 
   return postKong('/apis', data)
@@ -36,6 +36,7 @@ module.exports = {
   add: program => {
     program
       .command('add <name> <hosts> <upstream> [uris]')
+      .option('-s, --strip', 'Strip uri')
       .description('Adds API')
       .action(addKongApi)
   }
