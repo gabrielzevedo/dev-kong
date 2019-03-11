@@ -6,7 +6,7 @@ function addKongApi (name, hosts, upstream, uris, options) {
     name,
     hosts,
     upstream_url: upstream,
-    preserve_host: true,
+    preserve_host: false,
     strip_uri: false
   }
 

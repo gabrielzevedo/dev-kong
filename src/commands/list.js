@@ -9,7 +9,7 @@ function listApis () {
           name: api.name,
           hosts: api.hosts,
           upstream_url: api.upstream_url,
-          uris: api.uris
+          uris: api.uris.join(', ')
         }))
       logTable(apiList)
     })

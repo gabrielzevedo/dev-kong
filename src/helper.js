@@ -2,7 +2,7 @@ const Table = require('cli-table')
 
 function logTable (objects) {
   const serializeValues = keys => obj => keys.reduce((prev, key) => prev.concat(obj[key] || ''), [])
-  const mergeKeys = (obj, keys) => keys.reduce((prev, key) => Object.assign(prev, {[key]: true}), obj)
+  const mergeKeys = (obj, keys) => keys.reduce((prev, key) => Object.assign(prev, { [key]: true }), obj)
   const keysObject = objects.reduce((prev, object) => mergeKeys(prev, Object.keys(object)), {})
   const keys = Object.keys(keysObject)
   const values = objects.map(serializeValues(keys))

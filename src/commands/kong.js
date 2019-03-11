@@ -31,17 +31,17 @@ function dockerComposeUp (file) {
     const arg = ['-f', file, 'up', '-d']
 
     execCommand('docker-compose', arg)
-          .then(child => {
-            child.stdout.on('data', toConsole)
-            child.stderr.on('data', toConsole)
-            child.on('close', code => {
-              if (!code) {
-                return resolve(code)
-              }
+      .then(child => {
+        child.stdout.on('data', toConsole)
+        child.stderr.on('data', toConsole)
+        child.on('close', code => {
+          if (!code) {
+            return resolve(code)
+          }
 
-              return reject(code)
-            })
-          })
+          return reject(code)
+        })
+      })
   })
 }
 
@@ -52,17 +52,17 @@ function dockerComposeDown (file) {
     const arg = ['-f', file, 'down']
 
     execCommand('docker-compose', arg)
-          .then(child => {
-            child.stdout.on('data', toConsole)
-            child.stderr.on('data', toConsole)
-            child.on('close', code => {
-              if (!code) {
-                return resolve(code)
-              }
+      .then(child => {
+        child.stdout.on('data', toConsole)
+        child.stderr.on('data', toConsole)
+        child.on('close', code => {
+          if (!code) {
+            return resolve(code)
+          }
 
-              return reject(code)
-            })
-          })
+          return reject(code)
+        })
+      })
   })
 }
 
