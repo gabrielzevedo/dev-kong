@@ -1,6 +1,6 @@
 {
   "name": "dev-kong",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Development Kong Server",
   "bin": {
     "kong": "./src/index.js"
