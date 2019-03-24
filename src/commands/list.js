@@ -9,7 +9,6 @@ function pad (value, n) {
 function listApis () {
   return getKong('/apis')
     .then(response => {
-      console.log(response.data)
       const apiList = response.data
         .map(api => ({
           name: api.name,
