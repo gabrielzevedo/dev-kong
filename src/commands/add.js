@@ -6,8 +6,8 @@ function addKongApi (name, hosts, upstream, uris, options) {
     name,
     hosts,
     upstream_url: upstream,
-    preserve_host: false,
-    strip_uri: false
+    preserve_host: !!options.preservehost,
+    strip_uri: !!options.stripuri
   }
 
   if (uris) {
@@ -36,6 +36,8 @@ module.exports = {
   add: program => {
     program
       .command('add <name> <hosts> <upstream> [uris]')
+      .option('--preservehost', 'Preserve host')
+      .option('--stripuri', 'Strip URI')
       .description('Adds API')
       .action(addKongApi)
   }
