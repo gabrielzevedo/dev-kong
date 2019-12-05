@@ -1,6 +1,6 @@
 {
   "name": "dev-kong",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Development Kong Server",
   "bin": {
     "kong": "./src/index.js"
@@ -32,6 +32,7 @@
     "cli-table": "^0.3.1",
     "commander": "^4.0.1",
     "fs-extra": "^8.1.0",
+    "js-yaml": "^3.13.1",
     "my-ip": "^1.1.1",
     "node-yaml": "^4.0.1",
     "ramda": "^0.26.1",
