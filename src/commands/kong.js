@@ -1,4 +1,4 @@
-const { dump } = require('node-yaml')
+const { dump } = require('js-yaml')
 const tmp = require('tmp')
 const fs = require('fs')
 const Promise = require('bluebird')
