@@ -6,7 +6,8 @@
     "kong": "./src/index.js"
   },
   "scripts": {
-    "lint": "standard"
+    "lint": "standard",
+    "kong": "./src/index.js"
   },
   "pre-commit": [
     "lint"
@@ -27,16 +28,16 @@
   },
   "homepage": "https://github.com/ernestofreyreg/dev-kong#readme",
   "dependencies": {
-    "axios": "^0.19.0",
-    "bluebird": "^3.4.7",
+    "axios": "^0.19.2",
+    "bluebird": "^3.7.2",
     "cli-table": "^0.3.1",
-    "commander": "^4.0.1",
-    "fs-extra": "^8.1.0",
-    "js-yaml": "^3.13.1",
+    "commander": "^4.1.1",
+    "fs-extra": "^9.0.1",
+    "js-yaml": "^3.14.0",
     "my-ip": "^1.1.1",
     "node-yaml": "^4.0.1",
-    "ramda": "^0.26.1",
-    "tmp": "^0.1.0"
+    "ramda": "^0.27.0",
+    "tmp": "^0.2.1"
   },
   "devDependencies": {
     "mocha": "^6.2.2",
