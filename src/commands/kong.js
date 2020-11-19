@@ -7,10 +7,10 @@ const spawn = require('child_process').spawn
 const tmpFile = Promise.promisify(tmp.file)
 const writeFile = Promise.promisify(fs.writeFile)
 
-const createTempDockerComposeFile = () => {
+const createTempDockerComposeFile = (port) => {
   return tmpFile({ postfix: '.yml' })
     .then(path => {
-      return writeFile(path, dump(dockerComposeConfig))
+      return writeFile(path, dump(dockerComposeConfig(port)))
         .then(() => path)
     })
 }
@@ -66,7 +66,7 @@ function dockerComposeDown (file) {
   })
 }
 
-const dockerComposeConfig = {
+const dockerComposeConfig = (port) => ({
   version: '3',
   services: {
     'kong-database': {
@@ -84,7 +84,7 @@ const dockerComposeConfig = {
         'kong-database'
       ],
       ports: [
-        '80:8000',
+        `${port}:8000`,
         '8443:8443',
         '8001:8001',
         '7946:7946'
@@ -97,19 +97,15 @@ const dockerComposeConfig = {
       ]
     }
   }
-}
+})
 
-function startKongServer () {
-  console.log('Starting Kong')
-
-  return createTempDockerComposeFile()
+function startKongServer (options) {
+  return createTempDockerComposeFile(options.port || 80)
     .then(path => dockerComposeUp(path))
 }
 
 function stopKongServer () {
-  console.log('Stoping Kong')
-
-  return createTempDockerComposeFile()
+  return createTempDockerComposeFile(80)
     .then(path => dockerComposeDown(path))
 }
 
@@ -117,6 +113,7 @@ module.exports = {
   startKong: program => {
     program
       .command('start')
+      .option('--port <port>', 'Reverse Proxy Port')
       .description('Start local Kong server')
       .action(startKongServer)
   },
@@ -125,5 +122,7 @@ module.exports = {
       .command('stop')
       .description('Stop local Kong server')
       .action(stopKongServer)
-  }
+  },
+  startKongServer,
+  stopKongServer
 }

@@ -2,7 +2,7 @@
 
 const program = require('commander')
 const { version } = require('../package.json')
-const commands = require('./commands')
+const { commands } = require('./commands')
 
 program
   .version(version)
