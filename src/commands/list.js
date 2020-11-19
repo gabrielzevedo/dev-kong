@@ -6,7 +6,7 @@ function pad (value, n) {
   return `${repeat(' ', n - value.length).join('')}${value}`
 }
 
-function listApis () {
+function listApis (options) {
   return getKong('/apis')
     .then(response => {
       const apiList = response.data
@@ -18,10 +18,18 @@ function listApis () {
           upstream_url: api.upstream_url,
           uris: api.uris.join(', ')
         }))
-      logTable(apiList)
+      if (!options.silent) {
+        logTable(apiList)
+      }
+
+      return apiList
     })
     .catch(() => {
-      console.log('Failed, check if Kong running first')
+      if (!options.silent) {
+        console.log('Failed, check if Kong running first')
+      }
+
+      return null
     })
 }
 
@@ -30,6 +38,7 @@ module.exports = {
   list: program => {
     program
       .command('list')
+      .option('--silent', 'No console output')
       .description('List APIs')
       .action(listApis)
   }

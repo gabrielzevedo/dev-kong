@@ -26,20 +26,22 @@ function execCommand (command, options) {
   })
 }
 
-function dockerComposeUp (file) {
+function dockerComposeUp (file, options) {
   return new Promise((resolve, reject) => {
     const arg = ['-f', file, 'up', '-d']
 
     execCommand('docker-compose', arg)
       .then(child => {
-        child.stdout.on('data', toConsole)
-        child.stderr.on('data', toConsole)
+        if (!options.silent) {
+          child.stdout.on('data', toConsole)
+          child.stderr.on('data', toConsole)
+        }
         child.on('close', code => {
           if (!code) {
-            return resolve(code)
+            return resolve()
           }
 
-          return reject(code)
+          return reject(new Error())
         })
       })
   })
@@ -47,20 +49,23 @@ function dockerComposeUp (file) {
 
 const toConsole = data => { console.log(data.toString()) }
 
-function dockerComposeDown (file) {
+function dockerComposeDown (file, options) {
   return new Promise((resolve, reject) => {
     const arg = ['-f', file, 'down']
 
     execCommand('docker-compose', arg)
       .then(child => {
-        child.stdout.on('data', toConsole)
-        child.stderr.on('data', toConsole)
+        if (!options.silent) {
+          child.stdout.on('data', toConsole)
+          child.stderr.on('data', toConsole)
+        }
+
         child.on('close', code => {
           if (!code) {
-            return resolve(code)
+            return resolve()
           }
 
-          return reject(code)
+          return reject(new Error())
         })
       })
   })
@@ -101,12 +106,12 @@ const dockerComposeConfig = (port) => ({
 
 function startKongServer (options) {
   return createTempDockerComposeFile(options.port || 80)
-    .then(path => dockerComposeUp(path))
+    .then(path => dockerComposeUp(path, options))
 }
 
-function stopKongServer () {
+function stopKongServer (options) {
   return createTempDockerComposeFile(80)
-    .then(path => dockerComposeDown(path))
+    .then(path => dockerComposeDown(path, options))
 }
 
 module.exports = {
@@ -114,12 +119,14 @@ module.exports = {
     program
       .command('start')
       .option('--port <port>', 'Reverse Proxy Port')
+      .option('--silent', 'No console output')
       .description('Start local Kong server')
       .action(startKongServer)
   },
   stopKong: program => {
     program
       .command('stop')
+      .option('--silent', 'No console output')
       .description('Stop local Kong server')
       .action(stopKongServer)
   },

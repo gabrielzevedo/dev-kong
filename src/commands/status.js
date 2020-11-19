@@ -1,16 +1,24 @@
 const { getKong } = require('../kong')
 const { logObject } = require('../helper')
 
-function checkStatus () {
+function checkStatus (options) {
   return getKong('/status')
     .then(stat => {
-      console.log('Server')
-      logObject(stat.server)
-      console.log('Database')
-      logObject(stat.database)
+      if (!options.silent) {
+        console.log('Server')
+        logObject(stat.server)
+        console.log('Database')
+        logObject(stat.database)
+      }
+
+      return stat
     })
     .catch(() => {
-      console.log('Failed, check if Kong running first')
+      if (!options.silent) {
+        console.log('Failed, check if Kong running first')
+      }
+
+      return null
     })
 }
 
@@ -19,6 +27,7 @@ module.exports = {
   status: program => {
     program
       .command('status')
+      .option('--silent', 'No console output')
       .description('Check Kong status')
       .action(checkStatus)
   }

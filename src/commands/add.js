@@ -16,18 +16,26 @@ function addKongApi (name, hosts, upstream, uris, options) {
 
   return postKong('/apis', data)
     .then(api => {
-      logObject(api)
+      if (!options.silent) {
+        logObject(api)
+      }
+
+      return api
     })
     .catch(err => {
-      if (err.response && err.response.data) {
-        const error = Object.keys(err.response.data)
-          .map(key => `${key} ${err.response.data[key]}`)
-          .join('\n')
+      if (!options.silent) {
+        if (err.response && err.response.data) {
+          const error = Object.keys(err.response.data)
+            .map(key => `${key} ${err.response.data[key]}`)
+            .join('\n')
 
-        console.log(error)
-      } else {
-        console.log('Failed, check if Kong running first')
+          console.log(error)
+        } else {
+          console.log('Failed, check if Kong running first')
+        }
       }
+
+      return null
     })
 }
 
@@ -38,6 +46,7 @@ module.exports = {
       .command('add <name> <hosts> <upstream> [uris]')
       .option('--preservehost', 'Preserve host')
       .option('--stripuri', 'Strip URI')
+      .option('--silent', 'No console output')
       .description('Adds API')
       .action(addKongApi)
   }
