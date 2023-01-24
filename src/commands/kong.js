@@ -76,6 +76,7 @@ const dockerComposeConfig = (port) => ({
   services: {
     'kong-database': {
       image: 'postgres:9.4',
+      platform: 'linux/amd64',
       environment: [
         'POSTGRES_USER=kong',
         'POSTGRES_DB=kong',
